@@ -31,6 +31,7 @@ Context refs: <TM item ids + Spec revisions, exact file paths, prior findings> (
 Allowed to modify: <paths or "read-only">
 Interfaces/contracts agreed: <API shapes, component props, file ownership>
 Constraints: <conventions, test policy, approved decisions it must not reopen>
+Craft: <path to this skill's references/craft.md> (code-writing work only: how code is written, when to stop and question)
 Done when: <objective criteria>
 Return: the response contract below, concise.
 ```

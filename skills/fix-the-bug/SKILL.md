@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "09"
   leshi-contract: "1"
   leshi-gates: "behavior-change"
-  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions"
+  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, craft"
 ---
 
 # fix-the-bug
 
 Take a Bug item from the Task Manager, **reproduce it locally**, find the **root cause**, apply the **smallest safe fix** with tests that cover the regression, validate locally, and deliver a PR linked to the bug. If the bug is already fixed, not reproducible, or has no safe justified change, record the findings in the Task Manager and **do not open an empty PR**.
 
-Read `references/conventions.md` first. Delivery rules are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delivery rules are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`.
 
 ## 1. Trigger
 

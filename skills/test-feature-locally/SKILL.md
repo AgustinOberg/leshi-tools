@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "08"
   leshi-contract: "1"
   leshi-gates: "spec-reconciliation"
-  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, design-tools"
+  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, design-tools, craft"
 ---
 
 # test-feature-locally
 
 Validate an implemented feature **locally and end to end** against its approved acceptance criteria and hi-fi designs, fix what fails, run the project's required checks, and deliver it: branch pushed, PR open against the target branch, Task Manager updated, and *Ready for Review* only when the PR exists and required checks pass.
 
-Read `references/conventions.md` first. Delivery rules (branches, tests, PRs, Ready for Review) are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delivery rules (branches, tests, PRs, Ready for Review) are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`.
 
 ## 1. Trigger
 

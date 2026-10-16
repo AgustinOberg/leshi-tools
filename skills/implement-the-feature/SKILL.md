@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "06"
   leshi-contract: "1"
   leshi-gates: "unresolved-decision, spec-reconciliation"
-  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery"
+  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft"
 ---
 
 # implement-the-feature
 
 Implement an approved **Feature** by working through its child subtasks: load the approved WHAT and designs, resolve the remaining technical decisions with the developer, plan, implement (in parallel where safe), and integrate with targeted validation. The run ends with the implementation complete and pending enhancement/E2E — **never** with *Ready for Review*.
 
-Read `references/conventions.md` first. Delegation: `references/delegation.md`. Branches, tests and PR rules: `references/delivery.md`. Resume: `references/sessions.md`. Spec changes and drift: `references/spec-revisions.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delegation: `references/delegation.md`. Branches, tests and PR rules: `references/delivery.md`. Resume: `references/sessions.md`. Spec changes and drift: `references/spec-revisions.md`.
 
 ## 1. Trigger
 

@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "07"
   leshi-contract: "1"
   leshi-gates: "approved-decision-change"
-  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, delivery"
+  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, delivery, craft"
 ---
 
 # enhance-the-feature
 
 Polish an implemented **Feature** so it feels professional and native: compare it with the approved hi-fi and UI Kit and refine hierarchy, spacing, typography, states, gestures, subtle micro-interactions and accessibility. It does **not** change the product, reopen approved decisions or add decoration. If the Feature has no relevant visual surface, report N/A and finish without changes.
 
-Read `references/conventions.md` first. Visual quality bar and design tools: `references/design-tools.md`. Delegation: `references/delegation.md`. Branch and test rules: `references/delivery.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Visual quality bar and design tools: `references/design-tools.md`. Delegation: `references/delegation.md`. Branch and test rules: `references/delivery.md`.
 
 ## 1. Trigger
 
