@@ -32,6 +32,7 @@ Read `references/conventions.md` first. Delegation: `references/delegation.md`. 
 ## 3. Read
 
 - `.leshi/task-manager.md` — this project's Task Manager playbook (where SPECs/features/subtasks live, which MCP tool does each operation). Read it before any Task Manager operation.
+- `.leshi/design.md` — this project's design playbook (where the approved hi-fi lives and how to read/export it).
 - The Feature root item (WHAT, acceptance criteria, design links), **all** subtasks (scope, acceptance criteria, dependencies, status), and HOW decision comments (current vs superseded).
 - The approved hi-fi for each subtask (only the frames/pages the subtask links).
 - Technical Spec sections relevant to the feature (stack, conventions, security, testing).

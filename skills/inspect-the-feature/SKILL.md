@@ -31,6 +31,7 @@ Read `references/conventions.md` first (gates, statuses, questions policy, final
 ## 3. Read
 
 - `.leshi/task-manager.md` — this project's Task Manager playbook (where SPECs/features/subtasks live, which MCP tool does each operation). Read it before any Task Manager operation.
+- `.leshi/design.md` — this project's design playbook (which tool serves low-fi/hi-fi/UI Kit, where designs live, exact tool per operation). Read it before any design work.
 - The Idea item: body, all comments, attachments/links, labels, linked items.
 - Relevant SPECs by reference: Product Spec (users, value), Technical Spec (constraints that change UX, e.g. offline, platform limits), Design System Spec (UI Kit, patterns), MVP Spec (journeys, dependencies, and the **approved low-fi** for this feature if it was part of the MVP).
 - Existing hi-fi files related to the feature and neighbouring screens it must stay consistent with.

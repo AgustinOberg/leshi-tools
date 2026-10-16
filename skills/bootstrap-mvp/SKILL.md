@@ -31,6 +31,7 @@ Read `references/conventions.md` first (gates, statuses, questions policy, final
 ## 3. Read
 
 - `.leshi/task-manager.md` — this project's Task Manager playbook (where SPECs/features/subtasks live, which MCP tool does each operation). Read it before any Task Manager operation.
+- `.leshi/design.md` — this project's design playbook (which tool serves low-fi/hi-fi/UI Kit, where designs live, exact tool per operation). Read it before any design work.
 - `leshi.config.json`: `project` (platforms, language), `taskManager`, `design`, `specs`.
 - The approved Product Spec (personas, core capabilities, design references, desired visual language) and Technical Spec (platforms, frameworks — they constrain native patterns and component availability).
 - Existing Idea items in the TM that may belong to the MVP.

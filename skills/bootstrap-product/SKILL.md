@@ -29,7 +29,7 @@ Read `references/conventions.md` first; it defines gates, statuses, questions po
 
 ## 3. Read
 
-- `.leshi/task-manager.md` — this project's Task Manager playbook, if it already exists (this workflow creates it in the project-setup step).
+- `.leshi/task-manager.md` and `.leshi/design.md` — this project's Task Manager and design playbooks, if they already exist (this workflow creates them in the project-setup step).
 - `leshi.config.json`: `project`, `harnesses`, `taskManager`, `design`, `specs`.
 - Any material the developer provides or points to: notes, docs, links, competitor names, references.
 - Existing Task Manager content only after the TM is connected (an existing Product Spec item, ideas).
@@ -51,7 +51,7 @@ Ask only what cannot be inferred, in small batches with recommended defaults:
 ## 5. Approvals
 
 - [GATE:positioning-scope] — the proposed positioning (audience, value proposition, differentiation, core capabilities, explicit non-goals) before writing the Product Spec.
-- [GATE:project-setup] — the tool choices, the Task Manager capability table and the Task Manager playbook (`.leshi/task-manager.md`), before relying on the TM as the source of truth.
+- [GATE:project-setup] — the tool choices, the capability tables and both playbooks (`.leshi/task-manager.md`, `.leshi/design.md`), before relying on the TM as the source of truth.
 - [GATE:product-spec] — the complete Product Spec text before it is saved as the approved revision.
 - Material additions the developer did not ask for (new segments, monetization models, scope expansions) are proposals and need explicit approval.
 
@@ -77,7 +77,7 @@ Not allowed: choosing frameworks, runtimes, hosting or databases (that is `boots
 6. **Connect the Task Manager and discover capabilities.** Follow `references/task-manager.md` §3 [CHECK:task-manager-capabilities]: connect over MCP (guide the developer through the harness's MCP login if needed; never ask for a token in chat), list tools, exercise only read calls, show the verified / advertised / unavailable table, then record it with `leshi tm record ...`.
    - **Playbook**: run `leshi tm playbook` to create `.leshi/task-manager.md` from the provider template, then complete it with what discovery showed: where SPECs, features, subtasks, decisions, approvals and status will live, and the exact MCP tool (and key arguments) for each operation. Keep it to tables and ids. It is part of what the developer approves at the project-setup gate.
    - **Read-only or insufficient TM** (cannot create/update items or comments): explain exactly what will not work, offer authorized options (permissions, another server, a verified CLI/API fallback the developer authorizes, another TM). Do not continue as if the TM were writable; do not simulate persistence. If the developer wants to proceed later, set the run to *Awaiting Input* and stop.
-   - **Design tools**: check that the chosen tools are reachable (e.g. the Figma MCP server is connected) or note what the developer must set up before `bootstrap-mvp`. Never substitute a tool.
+   - **Design tools** (`references/design-tools.md`): for each chosen tool, discover what it can do — MCP tools for Figma/Penpot (guide the developer through the harness's MCP login; read-only calls only), repo paths for HTML/tldraw — and record it with `leshi design record --provider <p> --via mcp|local ...` (`leshi design probe` from the CLI when reachable). A tool that cannot create/update designs is review-only: say so and ask how to proceed. Then `leshi design playbook` → complete `.leshi/design.md` (where the UI Kit, low-fi and hi-fi live, naming, exports for review, how approvals pin versions, exact tool per operation). Never substitute a tool.
    [GATE:project-setup]
 7. **Write the Product Spec draft.** Sections: Vision · Problem & opportunity · Target users/personas · User needs & jobs-to-be-done · Research summary (competitors, reviews, market) with sources · Differentiation · Core capabilities · Platforms · Design references & desired visual language · Non-goals · Risks, assumptions & open questions · Success metrics. Present it in the conversation (or as a TM draft/proposal comment if long). [GATE:product-spec] Iterate on feedback in place.
 8. **Save the approved revision.** Create or update the Product Spec item in the TM following the provider strategy (`references/task-manager.md` §5): body = approved text with `<!-- leshi:spec kind=product revision=v1 status=approved -->`; snapshot comment; approval comment `<!-- leshi:approval gate=product-spec artifact=product-spec revision=v1 by=developer date=YYYY-MM-DD -->`. Also store a short "Project Setup" section (tools chosen, TM capabilities summary, repository, platforms) in the Product Spec item or as a linked item.

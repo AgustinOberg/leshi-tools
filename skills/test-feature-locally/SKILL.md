@@ -31,6 +31,7 @@ Read `references/conventions.md` first. Delivery rules (branches, tests, PRs, Re
 ## 3. Read
 
 - `.leshi/task-manager.md` — this project's Task Manager playbook (where SPECs/features/subtasks live, which MCP tool does each operation). Read it before any Task Manager operation.
+- `.leshi/design.md` — this project's design playbook (which tool serves low-fi/hi-fi/UI Kit, where designs live, exact tool per operation). Read it before any design work.
 - `leshi.config.json`: `taskManager`, `testing` (commands, `e2e.tool`, `e2e.command`, `e2e.devices`, `e2e.requiredFor`), `delivery` (`targetBranch`, `branchPrefix`, `worktreesDir`), `project.platforms`, `design`.
 - The Feature item, all subtasks and their statuses, current HOW decisions (comments), the latest **approved** Spec revision, and the approved hi-fi references (`<!-- leshi:design kind=hi-fi ... -->`).
 - The Technical Spec sections on local environment, services and test data (by reference).

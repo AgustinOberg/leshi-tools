@@ -32,6 +32,7 @@ Read `references/conventions.md` first. Visual quality bar and design tools: `re
 ## 3. Read
 
 - `.leshi/task-manager.md` — this project's Task Manager playbook (where SPECs/features/subtasks live, which MCP tool does each operation). Read it before any Task Manager operation.
+- `.leshi/design.md` — this project's design playbook (which tool serves low-fi/hi-fi/UI Kit, where designs live, exact tool per operation). Read it before any design work.
 - The Feature root item (WHAT, acceptance criteria, design links, approval markers) and its subtasks.
 - The approved hi-fi for each affected screen and device, and the Design System Spec / UI Kit (tokens, components, patterns).
 - The implementation diff on the feature branch (`git diff <target-branch>...HEAD`) and the UI files it touches.
