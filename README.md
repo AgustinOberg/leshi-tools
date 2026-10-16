@@ -13,12 +13,20 @@ The public workflow **skills** and specialist **agents** of [leshi-ai](https://g
 | `bootstrap-mvp` | "bootstrap the MVP" | approved UI Kit + low-fi of ALL MVP features |
 | `bootstrap-existing-project` | "bootstrap existing project" | approved baseline SPECs + feature inventory (no code changes) |
 | `inspect-the-feature` | "convert idea 12 to a feature" | approved Feature (WHAT, hi-fi, subtasks), no code |
-| `implement-the-feature` | "let's do feature 12" | implemented subtasks + targeted tests (never Ready for Review) |
+| `implement-the-feature` | "let's do feature 12" | implemented subtasks, written per the craft, with tests and an independent review (never Ready for Review) |
 | `enhance-the-feature` | "enhance feature 12" | restrained UI polish, or N/A |
 | `test-feature-locally` | "test feature 12 locally" | local E2E + PR + Ready for Review when checks pass |
 | `fix-the-bug` | "fix bug 48" | validated fix PR, or a no-change report |
 
 Every skill is started manually and never starts another one. Human approvals pause the run.
+
+## Methodology
+
+The skills define the process; how the work is done lives in shared references every relevant skill ships in its `references/` folder:
+
+- `craft.md` — how code is written, stack-agnostic: structure, boundaries and errors, frontend and backend rules, backend tests always against a local test database, the four moments to stop and question (library vs hand-built, code that smells, a spec or design that does not hold, platform limits) and a review checklist.
+- `stack-profile.md` — the maintainer's preferred tools, offered as a recommendation only when they meet the project's requirements, never imposed.
+- `design-tools.md` — design tools, fidelity rules and the design craft (real products first, directions before a choice, every screen specified, tokens only, purposeful motion).
 
 ## Agents (7 specialists)
 

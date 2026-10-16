@@ -20,7 +20,7 @@ Some choices depend on the stack or the product. They are recorded in the Techni
 
 ## 3. When to stop and question
 
-These are the moments to stop writing code and talk to the developer (in a workflow, through its decision gate; inside an agent, as `decisions needed`). Present the options, recommend one with the reason, and wait.
+These are the moments to stop writing code and talk to the developer (in a workflow, as a proposal at its nearest approval gate — or *Awaiting Input* when it has none for the question; inside an agent, as `decisions needed`). Present the options, recommend one with the reason, and wait.
 
 - **Library vs hand-built.** Before hand-building something a maintained library already solves, or before adding a new dependency: name the candidates (and hand-built), compare fit, size, maintenance and DX, recommend.
 - **Code that smells.** Before writing any of these, justify it in one line or pick the alternative; if neither works, ask: an effect that syncs state, duplicated or derived state stored separately, a component or file that keeps growing, a new abstraction layer, manual memoization, a boolean prop that switches behavior, a cast or suppressed error.
@@ -63,7 +63,7 @@ These are the moments to stop writing code and talk to the developer (in a workf
 - **Place state by scope:** server data in the server-state cache (centralized keys, invalidate after mutations instead of editing the cache by hand, optimistic updates only on purpose); local UI state in the hook; flow state in a reducer owned by the flow; persisted preferences in one storage module with a registry of keys. No global store by default.
 - **Data in three tiers:** one HTTP client (auth, language, refresh) → one service per backend area returning parsed data → query/mutation hooks. Screens never call the HTTP client directly. When the backend is not ready, a mock implements the same service signature with realistic latency, coded errors and switchable scenarios (empty, error, slow).
 - **Every data screen has four states:** loading (skeletons shaped like the content), error with retry, empty, ready.
-- **Tokens only:** spacing scale, radii, semantic color roles, one type ramp; no literal colors or sizes in components. Light and dark are each designed.
+- **Tokens only:** spacing scale, radii, semantic color roles, one type ramp; no literal colors or sizes in components. Each theme the UI Kit defines (e.g. light and dark) is designed, not inverted.
 - i18n from the first screen (typed keys, `feature.screen.element`), accessibility as part of done (labels, roles, hit areas, reduced motion). Motion is short and has a purpose.
 - No manual memoization when the framework or compiler handles it; measure before optimizing.
 

@@ -26,3 +26,22 @@ Rules:
 ## Visual quality bar
 
 Professional, restrained, platform-native. No decorative "AI-style" gradients, glows, emoji or gratuitous animation. Accessibility: contrast, touch targets, dynamic type, focus order, motion that respects reduced-motion.
+
+## Design craft
+
+How leshi designs, whatever the tool. The approved visual direction of the product wins over any default here.
+
+**Process**
+- **Real products first.** Before designing a flow, study how strong products solve it (in and outside the category): what to adopt, what is table stakes, what they all do badly. Cite each reference.
+- **Directions, then a choice.** For the visual direction, show 3–4 genuinely different directions side by side and let the developer choose; record what was rejected and why, in their words.
+- **Every screen is specified:** the flow it belongs to, how it is presented (push, modal, sheet, overlay), what back does, its states (default, loading, empty, error, and the edge cases that matter), and the copy for states that are only text.
+- **Defaults are visible.** Small decisions you take are listed as "defaults the developer can overrule", never buried.
+- **Look at what you made.** Render or screenshot every board and check it before handing it over.
+- **Approved designs keep a history:** a design changelog row (date, what, why) for every change to an approved artifact; the live file is the only truth; snapshot before a large revision.
+
+**Principles**
+- **Tokens only:** a spacing scale on a fixed base unit, a radius rule (e.g. one radius for actions, one for surfaces), semantic color roles in background/foreground pairs, one named type ramp. Each theme the UI Kit defines (e.g. light and dark) is designed, not inverted.
+- **Hierarchy through restraint:** one accent; a color with meaning is never decoration; at most one primary action per screen; disabled reads quiet, not faded; elevation only where it separates layers.
+- **Navigation has semantics:** pick push, modal, sheet or overlay by the job; flows that must not go back (completed payments, finished onboarding) remove back and draw their own exit; unsaved edits get a discard guard; exits land on a known screen.
+- **Motion has a purpose** (feedback, orientation, continuity) and is short; entering eases out; every animation has a reduced-motion alternative; list what is deliberately not animated. Presses give immediate feedback.
+- **Layouts respond to the window size class,** not to a device model; larger screens get a composition, not a stretched phone.

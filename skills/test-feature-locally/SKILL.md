@@ -54,8 +54,8 @@ Ask only what cannot be inferred:
 ## 6. Agents
 
 - `leshi-qa` (primary): run the journeys and edge cases on the chosen devices, compare UI with the hi-fi, collect evidence (screenshots, logs, steps). Several `leshi-qa` instances may cover different devices/platforms in parallel when they are independent.
-- `leshi-frontend` / `leshi-backend`: fix defects in their area with focused tests; give each a bounded brief with the failing journey, evidence and files they may modify.
-- `leshi-reviewer` (optional): independent review of the final diff when the change is high-risk (security, data, payments, migrations).
+- `leshi-frontend` / `leshi-backend`: fix defects in their area with their tests (backend: always, craft §9); give each a bounded brief with the failing journey, evidence and files they may modify.
+- `leshi-reviewer` (optional): independent review of the final diff when the change is high-risk (security, data integrity, payments, migrations or shared contracts).
 - Delegate per `references/delegation.md`; do small fixes inline.
 
 ## 7. Scope
@@ -72,7 +72,7 @@ Not allowed: deploying to real infrastructure or touching production data; chang
 4. **Run everything locally.** Start frontend, backend and required dependencies with practical test data (local emulators/containers/mocks as the Technical Spec defines). Never point at production. If something cannot start, diagnose; if it is a genuine external impediment, record it (see §12).
 5. **Test end to end.** Exercise the complete journeys, important edge cases (empty/error/loading states, permissions, offline, invalid input) and the real frontend↔backend integration. Compare observed behavior with each acceptance criterion and the UI with the approved hi-fi on each device. Capture evidence: screenshots, relevant logs, exact repro steps. No video recording is required.
 6. **Log findings.** Record each defect in the TM (comment or child item per provider strategy) with steps, expected vs observed, device and evidence. Classify: implementation defect, polish defect, or spec conflict.
-7. **Fix and retest (feedback loop).** Implementation and polish defects: fix with the right agent (or inline), add/adjust focused tests, then repeat only the affected journeys on the affected devices. Spec conflicts: [GATE:spec-reconciliation]. Loop until every criterion in the matrix passes or the remaining items are explicitly accepted or deferred by the developer.
+7. **Fix and retest (feedback loop).** Implementation and polish defects: fix with the right agent (or inline), add/adjust their tests (backend fixes always with endpoint tests, craft §9), then repeat only the affected journeys on the affected devices. Spec conflicts: [GATE:spec-reconciliation]. Loop until every criterion in the matrix passes or the remaining items are explicitly accepted or deferred by the developer.
 8. **Required checks.** [CHECK:required-checks] Run every command in `testing.requiredBeforePush` (at least the configured unit tests), plus typecheck/lint/integration commands when configured. All must pass. Never skip or weaken a check; disclose any that cannot run here and why.
 9. **Commit and push.** Small, meaningful commits referencing the TM id, following the repository's conventions; no secrets. Push the feature branch (create it per `delivery.branchPrefix` if needed).
 10. **Open or update the PR** against `delivery.targetBranch` (default `main`): summary, link to the TM feature and the approved Spec revision, what changed, test matrix with results (commands + pass/fail per device), screenshots for visual changes, and manual test instructions a human can follow. Record `<!-- leshi:pr url=... spec=<feature>@<revision> -->` in the TM. Never merge.
@@ -87,7 +87,7 @@ Write a session checkpoint after: test matrix and device coverage decided; envir
 ## 10. Testing
 
 - E2E journeys and edge cases per the matrix on the chosen devices ([CHECK:device-coverage]).
-- Focused tests for every fix; repeat only affected journeys after a fix.
+- Tests for every fix (backend fixes always with endpoint tests against the local test database, craft §9); repeat only affected journeys after a fix.
 - [CHECK:required-checks]: `testing.requiredBeforePush` (and configured typecheck/lint/integration) before the final commit/push.
 - [CHECK:pr-before-ready-for-review]: PR exists and required CI checks pass before *Ready for Review*.
 - Evidence: screenshots/logs/steps linked in the TM and the PR. A check that did not run is reported as not run, never as passed.

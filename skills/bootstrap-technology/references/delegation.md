@@ -7,8 +7,8 @@ The main harness session is the orchestrator. There is no orchestrator agent. Sp
 | Agent | Use for | Never |
 |---|---|---|
 | `leshi-structure` | codebase shape, boundaries, conventions, dependencies, architecture impact | implement product UI or business logic by default |
-| `leshi-frontend` | screens, components, navigation, state, frontend integration + focused tests | redefine requirements or backend contracts |
-| `leshi-backend` | APIs, domain logic, persistence, validation, contracts + focused tests; runtime/deploy comparisons | choose cloud/deploy without developer approval |
+| `leshi-frontend` | screens, components, navigation, state, frontend integration + the tests the frontend policy requires | redefine requirements or backend contracts |
+| `leshi-backend` | APIs, domain logic, persistence, validation, contracts + backend tests (always, craft §9); runtime/deploy comparisons | choose cloud/deploy without developer approval |
 | `leshi-research` | users, reviews, competitors, market, references; evidence vs assumptions | write production code or make product decisions |
 | `leshi-design` | UX flows, UI Kit, low-fi/hi-fi, interaction rationale, restrained polish | change scope or approved visual direction |
 | `leshi-reviewer` | independent review of a diff vs SPECs and the craft: regressions, security, quality, silent decisions | edit files (read-only) or fix its own findings |
@@ -31,7 +31,8 @@ Context refs: <TM item ids + Spec revisions, exact file paths, prior findings> (
 Allowed to modify: <paths or "read-only">
 Interfaces/contracts agreed: <API shapes, component props, file ownership>
 Constraints: <conventions, test policy, approved decisions it must not reopen>
-Craft: <path to this skill's references/craft.md> (code-writing work only: how code is written, when to stop and question)
+Craft: <path to this skill's references/craft.md, when it ships one> (code-writing, review, structure and QA work: how code is written, when to stop and question)
+Design craft: <path to this skill's references/design-tools.md, when it ships one> (design work only)
 Done when: <objective criteria>
 Return: the response contract below, concise.
 ```

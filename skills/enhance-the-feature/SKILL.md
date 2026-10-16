@@ -54,7 +54,7 @@ Usually none. Ask only when:
 
 - `leshi-design`: review the running UI or screenshots against the hi-fi and UI Kit; propose concrete, restrained refinements with rationale.
 - `leshi-frontend`: implement the refinements and update affected frontend tests.
-- `leshi-reviewer` (optional): independent check that polish did not cause regressions or accessibility issues on high-risk screens.
+- `leshi-reviewer` (optional): independent check that polish did not cause regressions or accessibility issues, when the change is high-risk (security, data integrity, payments, migrations or shared contracts).
 - Design review and implementation are sequential per screen; independent screens may be parallelized with disjoint file ownership. Briefs per `references/delegation.md`.
 
 ## 7. Scope

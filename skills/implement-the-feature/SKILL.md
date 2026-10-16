@@ -1,6 +1,6 @@
 ---
 name: implement-the-feature
-description: "leshi workflow 06 (manual). Use ONLY when the developer explicitly asks to implement an approved Feature, e.g. 'let's do this feature: 123', '/implement-the-feature 123'. Implements its subtasks in order with targeted tests and TM updates. Never marks Ready for Review."
+description: "leshi workflow 06 (manual). Use ONLY when the developer explicitly asks to implement an approved Feature, e.g. 'let's do this feature: 123', '/implement-the-feature 123'. Implements its subtasks in order following the craft, with tests (backend always), an independent review and TM updates. Never marks Ready for Review."
 license: MIT
 metadata:
   leshi-skill: "06"
@@ -18,7 +18,7 @@ Read `references/conventions.md` first. How code is written and when to stop and
 ## 1. Trigger
 
 - Explicit developer request in the latest message: "let's do this feature: XXXX", "implement feature XXXX", "/implement-the-feature XXXX", "$implement-the-feature XXXX", or equivalent in any language, naming one Feature.
-- Also: "continue implementing XXXX" — resume the existing run (§8 step 1).
+- Also: "continue implementing XXXX" — resume the existing run (§8 step 0).
 - Not triggered by: `inspect-the-feature` finishing or a Feature appearing in the TM. [NO-AUTO-CHAIN]
 
 ## 2. Preconditions
@@ -47,14 +47,14 @@ Ask only when a **meaningful** technical choice is unresolved by the Technical S
 ## 5. Approvals
 
 - [GATE:unresolved-decision] — each meaningful unresolved technical choice, before code depends on it. Record the decision as a TM comment `<!-- leshi:decision id=D-<n> status=current [supersedes=D-<m>] -->` with rationale on the Feature (global) or the subtask (local).
-- [GATE:spec-reconciliation] — when the approved Spec revision changed since the Feature was approved or since the run started, or when code and the approved SPEC disagree (drift). Stop, describe the difference, propose a revision or a code-side decision per `references/spec-revisions.md`, and wait.
+- [GATE:spec-reconciliation] — when the approved Spec revision changed since the Feature was approved or since the run started, or when code and the approved SPEC disagree (drift), or when the approved behavior or design does not hold for the user (craft §3). Stop, describe the difference, propose a revision or a code-side decision per `references/spec-revisions.md`, and wait.
 - New dependencies, schema migrations and changes to public contracts are decisions under [GATE:unresolved-decision] unless already approved.
 
 ## 6. Agents
 
 - `leshi-structure`: map organization, contracts and the files each subtask touches; architecture impact.
-- `leshi-frontend`: UI, navigation, state, frontend integration + focused tests, following the approved hi-fi.
-- `leshi-backend`: APIs, domain logic, persistence, validation + focused tests, within the approved runtime/deploy choice.
+- `leshi-frontend`: UI, navigation, state, frontend integration + the tests the frontend policy requires, following the approved hi-fi.
+- `leshi-backend`: APIs, domain logic, persistence, validation + backend tests (always, craft §9), within the approved runtime/deploy choice.
 - `leshi-reviewer`: independent read-only review of the integrated feature diff, **always** at the end (Phase 5), against the SPECs and `references/craft.md`.
 - Choose 0–N dynamically. Frontend and backend may run in parallel **only** after the interface between them is agreed and with disjoint file ownership; use one worktree per independent writing task (`delivery.worktreesDir`). The main session integrates, resolves conflicts and re-runs affected checks. Briefs and response contract: `references/delegation.md`.
 
@@ -81,7 +81,7 @@ Plan frontend, backend, database and integration changes per subtask: files, con
 **Phase 4 — Execute (in parallel where independent)**
 3. Pick the next unblocked subtask (independent subtasks may go to parallel agents with disjoint file ownership).
 4. Understand its acceptance criteria and the relevant files.
-5. Implement following existing patterns, project conventions and `references/craft.md`; stop at its stop-and-question moments (craft §3) through [GATE:unresolved-decision].
+5. Implement following existing patterns, project conventions and `references/craft.md`; stop at its stop-and-question moments (craft §3): a library, a code-smell or a platform-limit question goes through [GATE:unresolved-decision]; a spec or design that does not hold goes through [GATE:spec-reconciliation].
 6. Write or update the tests the subtask needs; backend changes always come with backend tests (craft §9).
 7. Run targeted tests, lint and typecheck when relevant — scoped to what changed, not full suites. [CHECK:targeted-tests]
 8. Fix issues and verify the subtask's acceptance criteria.
@@ -90,7 +90,7 @@ Plan frontend, backend, database and integration changes per subtask: files, con
 
 **Phase 5 — Integrate & check**
 11. Integrate parallel work (merge worktrees, resolve conflicts) and run feature-level integration tests; verify the UI against the hi-fi where the environment allows it (detailed device E2E belongs to `test-feature-locally`).
-12. Review the integrated diff with `leshi-reviewer` for every Feature: requirements, regressions, security, craft and silent decisions. Without subagent support, do the same review inline with the craft checklist (§11) and say so.
+12. Review the integrated diff with `leshi-reviewer` for every Feature: requirements, regressions, security, craft and silent decisions. Without subagent support, do the same review inline with the craft checklist (craft §11) and say so.
 13. Fix findings and rerun the affected validations. [CHECK:targeted-tests]
 14. Generate the final report: changes per subtask, test results (commands + pass/fail), checks not run and why, remaining issues, decisions taken.
 15. Mark the Feature according to actual progress: *implementation complete — pending enhancement / local E2E* (or the TM equivalent, e.g. stay *In Progress* with that note). **Never** *Ready for Review*: that requires the PR and required checks produced later (`test-feature-locally`, `references/delivery.md`). [CHECK:no-premature-ready-for-review] If the project's delivery policy opens the PR at this point, follow `references/delivery.md` and still leave *Ready for Review* to the moment the PR and required checks exist and pass. Close the session log and suggest `enhance-the-feature` or `test-feature-locally` as the next manual step.
@@ -101,7 +101,7 @@ Write a session checkpoint after: context loaded (Spec revision recorded); each 
 
 ## 10. Testing
 
-- Per subtask: focused unit/component tests for the change, plus lint/typecheck when relevant ([CHECK:targeted-tests]). Use `testing.unitCommand`, `testing.lintCommand`, `testing.typecheckCommand` scoped to the touched files/modules.
+- Per subtask: targeted tests for the change, plus lint/typecheck when relevant ([CHECK:targeted-tests]). Backend changes always ship with their endpoint tests against the local test database, with factories and shared fakes (craft §9), run with `testing.integrationCommand` scoped to the touched module; frontend tests follow the project's frontend test policy. Use `testing.unitCommand`, `testing.lintCommand`, `testing.typecheckCommand` scoped to the touched files/modules.
 - Feature level: `testing.integrationCommand` when configured.
 - Do not run every required suite after each subtask; `testing.requiredBeforePush` is the final gate before push (normally in `test-feature-locally`). Never delete, skip or weaken tests to pass. Disclose checks that cannot run here.
 
@@ -116,7 +116,7 @@ Write a session checkpoint after: context loaded (Spec revision recorded); each 
 ## 12. Failures
 
 - **Interrupted run**: resume per step 0; never redo validated subtasks; never trust a stale log over Git and the TM.
-- **Spec changed or drift found**: [GATE:spec-reconciliation]; pause affected subtasks; continue only independent ones if the developer agrees.
+- **Spec changed, drift found, or the approved behavior does not hold**: [GATE:spec-reconciliation]; pause affected subtasks; continue only independent ones if the developer agrees.
 - **Tests fail and the fix is unclear**: report the failure with evidence, do not disable the test; *Awaiting Input* if a decision is needed.
 - **Merge conflicts between parallel tasks**: resolve in the main session, rerun affected checks; never drop a side's changes silently.
 - **TM write fails**: retry once, checkpoint locally, report what was not recorded; never claim it was.
@@ -127,7 +127,8 @@ Write a session checkpoint after: context loaded (Spec revision recorded); each 
 Done when all are true:
 - every subtask is implemented, its acceptance criteria verified and its status updated in the TM with evidence (or explicitly deferred with the developer's approval);
 - all [GATE:unresolved-decision] and [GATE:spec-reconciliation] items raised in this run were answered and recorded;
-- [CHECK:targeted-tests] passed per subtask and after review fixes; integration checks ran or their absence is disclosed;
+- [CHECK:targeted-tests] passed per subtask and after review fixes; backend changes have endpoint tests against the local test database (craft §9); integration checks ran or their absence is disclosed;
+- the `leshi-reviewer` review of the integrated diff ran (or the inline review with craft §11, disclosed) and each finding was fixed or recorded as a follow-up with the developer's agreement;
 - [CHECK:no-premature-ready-for-review]: the Feature is marked *implementation complete — pending enhancement / E2E* (or equivalent), not *Ready for Review*;
 - the final report lists commits, branch, test results, remaining issues and the suggested next workflow, which you do **not** start. [NO-AUTO-CHAIN]
 

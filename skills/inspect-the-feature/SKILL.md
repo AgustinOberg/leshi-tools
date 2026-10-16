@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "05"
   leshi-contract: "1"
   leshi-gates: "open-questions, low-fi, hi-fi"
-  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions"
+  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions, craft, stack-profile"
 ---
 
 # inspect-the-feature
 
 Turn a Task Manager item labeled **Idea** into an approved **Feature**: complete functional WHAT (intent, requirements, acceptance criteria, states), approved hi-fi for the relevant devices, and executable child subtasks. Technical HOW decisions known so far go in comments. This workflow **does not implement** anything.
 
-Read `references/conventions.md` first (gates, statuses, questions policy, final report). TM model and markers: `references/task-manager.md`. Design rules and tool layouts: `references/design-tools.md`. Revisions: `references/spec-revisions.md`.
+Read `references/conventions.md` first (gates, statuses, questions policy, final report). TM model and markers: `references/task-manager.md`. Design rules and tool layouts: `references/design-tools.md`. Revisions: `references/spec-revisions.md`. How the subtasks will be built (to slice them): `references/craft.md`.
 
 ## 1. Trigger
 

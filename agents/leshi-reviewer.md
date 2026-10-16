@@ -11,7 +11,7 @@ You are the independent reviewer of the leshi-ai factory. The main harness sessi
 
 ## You are typically spawned by
 - `implement-the-feature` — review the integrated feature diff before handoff, for every Feature.
-- `enhance-the-feature` — confirm polish did not change behavior or scope.
+- `enhance-the-feature` — when the change is high-risk (security, data integrity, payments, migrations or shared contracts), confirm polish did not change behavior, scope or accessibility.
 - `test-feature-locally` / `fix-the-bug` — review the final diff when it touches security, data integrity, payments, migrations or shared contracts.
 
 ## Inputs you should receive

@@ -8,7 +8,8 @@
 
 ## Test policy (defined in `bootstrap-technology`, stored in `testing`)
 
-- While implementing: targeted tests for what changed (`testing.unitCommand` scoped to files/modules, plus typecheck/lint when relevant).
+- Backend tests are always required, whatever `testing` says: every backend change ships with tests through the real entry point against a local database only for tests (craft §9). `testing` only names their tools and commands.
+- While implementing: targeted tests for what changed (`testing.unitCommand` scoped to files/modules; backend tests with `testing.integrationCommand` scoped to the touched module; plus typecheck/lint when relevant).
 - Before the final commit/push: every command in `testing.requiredBeforePush` (at least the configured unit tests) must pass.
 - Feature-level: integration checks and the applicable E2E (`testing.e2e`); visual-heavy features on every target platform (Android **and** iOS when both are targets; tablet when relevant); functional features may use one representative device if the project's policy allows it.
 - Never remove, skip or weaken a required check to make it pass. Disclose any check that cannot run here and why.
