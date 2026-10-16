@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "02"
   leshi-contract: "1"
   leshi-gates: "deployment-choice, test-policy, technical-spec"
-  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery"
+  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft, stack-profile"
 ---
 
 # bootstrap-technology
 
 Turn the approved Product Spec into an **approved Technical Spec** and a **test policy** recorded in the project configuration. Agents research, compare and recommend; **the developer decides** every material technical choice. This is the second step of the new-project path (product → technology → MVP).
 
-Read `references/conventions.md` first (gates, statuses, questions policy, final report). Task Manager details are in `references/task-manager.md`, revisions in `references/spec-revisions.md`, test and delivery rules in `references/delivery.md`.
+Read `references/conventions.md` first (gates, statuses, questions policy, final report). Task Manager details are in `references/task-manager.md`, revisions in `references/spec-revisions.md`, test and delivery rules in `references/delivery.md`. Code-level decisions come from `references/craft.md` §2; the recommended defaults are in `references/stack-profile.md`.
 
 ## 1. Trigger
 
@@ -34,6 +34,7 @@ Read `references/conventions.md` first (gates, statuses, questions policy, final
 - The approved Product Spec (by id and revision): platforms, core capabilities, constraints (privacy, regulation, budget, timeline), success metrics.
 - Developer-provided constraints: existing accounts and vendors, team skills, company standards.
 - The repository only to detect what already exists (package manifests, CI files); do not read source in depth.
+- `references/craft.md` §2 (the code-level decisions this workflow must settle) and `references/stack-profile.md` (the recommended defaults).
 
 ## 4. Questions
 
@@ -48,6 +49,8 @@ For **each component** (frontend app(s), backend/API, workers/jobs, data stores)
 6. Existing constraints and preferred vendors?
 
 Cross-cutting topics, as applicable: frontend platform and framework (web SPA/SSR, mobile native vs React Native/Expo, desktop), backend runtime, API style/gateway, persistence (Postgres, SQLite/D1, Turso, ...), file storage, cache/queues, authentication/authorization, observability/monitoring, domain/DNS, secrets location (a secret manager or platform env — never the repo), security approach (data classification, privacy, OWASP-relevant risks), repository/monorepo layout, linters/formatters/conventions, and the **testing policy**: unit, integration and E2E tools; exact commands; target devices/browsers; coverage expectations; what must pass before the final commit/push.
+
+**Code-level decisions** (craft §2), asked here so implementation never has to guess: language and strictness; the library for each concern the product needs (server state and cache keys, forms, styling, validation, data access/ORM, i18n, HTTP client); how the client/server contract is kept in sync (types duplicated per app with contract tests, or a shared package); the frontend test policy (logic tests plus device QA, plus component tests, plus E2E); lint/format tooling and the `check` command. Backend tests are not a question — they are always required, against a local database only for tests (craft §9); only their tools are chosen. For every decision, offer the `references/stack-profile.md` choice as the recommendation **only when it meets the requirements**, next to real alternatives; the contract sync and the frontend test policy are always asked.
 
 ## 5. Approvals
 
@@ -78,8 +81,8 @@ Not allowed: scaffolding projects, installing dependencies, creating cloud accou
    - *Example (Case B):* "I want a simple backend." Ask about scale, connection state, native dependencies, execution limits, cron, storage, networking and cost. Cloudflare Workers is an edge **runtime/platform** with its own constraints (execution time, no arbitrary native binaries, its own storage products). Docker is a **packaging** strategy: it still needs a host (VPS, container service, Kubernetes) and an operations policy. They are not equivalent answers to one question. The developer chooses; the Technical Spec records the contract.
 5. **Cover the six questions per component.** Walk §4.1–4.6 for every component and record the answers. [CHECK:deployment-questions-covered] — before the Technical Spec draft, verify every component has an answer (or an explicit "not applicable / decide later" approved by the developer) for all six questions; list any gaps.
 6. **Decide runtime and deployment.** Present the per-component summary (runtime, hosting/deploy platform, build/deploy approach, environments, secrets location, estimated cost). [GATE:deployment-choice] Iterate on feedback in place.
-7. **Define the test policy.** Propose unit, integration and E2E tooling, exact commands, devices/browsers (Android + iOS when both are targets; tablet when relevant), coverage expectations and the commands required before push. [GATE:test-policy] Then record it, e.g. `leshi config set testing '{"definedBy":"bootstrap-technology","unitCommand":"npm run test:unit","typecheckCommand":"npm run typecheck","lintCommand":"npm run lint","requiredBeforePush":["npm run test:unit","npm run typecheck"],"e2e":{"tool":"maestro","command":"maestro test e2e/","devices":["ios-simulator","android-emulator"],"requiredFor":["bug-reproduction","feature-local-validation"]}}'`. Record delivery defaults if discussed: `leshi config set delivery '{"targetBranch":"main"}'`.
-8. **Write the Technical Spec draft.** Sections: Architecture overview (components and their interactions) · Platforms & frontend stack · Backend runtime & API · Hosting, deployment & environments (per component) · Data: persistence, storage, cache · Authentication & authorization · Security & privacy · Observability · CI/CD & release · Secrets management (where they live; never in the repo) · Testing policy · Repository layout & conventions (linters, formatting, commits) · Local development parity · Costs & vendor constraints · Risks, open questions & decisions deferred. Present it. [GATE:technical-spec] Iterate on feedback in place.
+7. **Define the test policy.** Backend tests are fixed: through the real entry point against a local database only for tests, with factories and shared fakes (craft §9); propose their tools and commands. Ask the frontend test policy (logic tests plus device QA, plus component tests, plus E2E). Propose E2E tooling, exact commands, devices/browsers (Android + iOS when both are targets; tablet when relevant), coverage expectations and the commands required before push. [GATE:test-policy] Then record it, e.g. `leshi config set testing '{"definedBy":"bootstrap-technology","unitCommand":"npm run test:unit","typecheckCommand":"npm run typecheck","lintCommand":"npm run lint","requiredBeforePush":["npm run test:unit","npm run typecheck"],"e2e":{"tool":"maestro","command":"maestro test e2e/","devices":["ios-simulator","android-emulator"],"requiredFor":["bug-reproduction","feature-local-validation"]}}'`. Record delivery defaults if discussed: `leshi config set delivery '{"targetBranch":"main"}'`.
+8. **Write the Technical Spec draft.** Sections: Architecture overview (components and their interactions) · Platforms & frontend stack · Backend runtime & API · Hosting, deployment & environments (per component) · Data: persistence, storage, cache · Authentication & authorization · Security & privacy · Observability · CI/CD & release · Secrets management (where they live; never in the repo) · Testing policy · Code-level decisions (craft §2: language, library per concern, client/server contract sync) · Repository layout & conventions (linters, formatting, `check`, commits) · Local development parity · Costs & vendor constraints · Risks, open questions & decisions deferred. Present it. [GATE:technical-spec] Iterate on feedback in place.
 9. **Save the approved revision.** Create or update the Technical Spec item per `references/task-manager.md` §5: body = approved text with `<!-- leshi:spec kind=technical revision=v1 status=approved -->`; snapshot comment; approval comments for [GATE:deployment-choice], [GATE:test-policy] and [GATE:technical-spec]; one `<!-- leshi:decision ... status=current -->` comment per major decision with its rationale.
 10. **Record references.** `leshi config set specs.technical '{"ref":"<item-id>","approvedRevision":"v1"}'`; `leshi config validate`. Re-read the TM item to confirm it was saved.
 11. **Close.** Update the session log to `completed`, produce the final report and suggest `bootstrap-mvp` as the next manual step.

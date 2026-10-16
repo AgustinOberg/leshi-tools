@@ -6,7 +6,7 @@ metadata:
   leshi-skill: "06"
   leshi-contract: "1"
   leshi-gates: "unresolved-decision, spec-reconciliation"
-  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft"
+  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft, stack-profile"
 ---
 
 # implement-the-feature

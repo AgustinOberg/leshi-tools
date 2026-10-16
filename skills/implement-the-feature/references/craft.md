@@ -10,7 +10,7 @@ This is how code is written in a leshi project: the default craft for every impl
 
 ## 2. Decisions that belong to the project — ask, never assume
 
-Some choices depend on the stack or the product. They are recorded in the Technical Spec (or the config); read them there. When the task needs one that is not decided, stop and ask, with options and a recommendation, before introducing it. Never adopt one silently because it is what you know.
+Some choices depend on the stack or the product. They are recorded in the Technical Spec (or the config); read them there. When the task needs one that is not decided, stop and ask, with options and a recommendation (the `references/stack-profile.md` choice when it meets the requirements), before introducing it. Never adopt one silently because it is what you know.
 
 - Language and its strictness (e.g. TypeScript strict).
 - Libraries for server state/caching, cache-key management, forms, styling, validation, data access/ORM, i18n, HTTP client.

@@ -6,7 +6,7 @@ metadata:
   leshi-skill: "09"
   leshi-contract: "1"
   leshi-gates: "behavior-change"
-  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, craft"
+  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, craft, stack-profile"
 ---
 
 # fix-the-bug

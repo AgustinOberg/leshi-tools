@@ -6,7 +6,7 @@ metadata:
   leshi-skill: "07"
   leshi-contract: "1"
   leshi-gates: "approved-decision-change"
-  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, delivery, craft"
+  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, delivery, craft, stack-profile"
 ---
 
 # enhance-the-feature

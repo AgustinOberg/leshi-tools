@@ -6,7 +6,7 @@ metadata:
   leshi-skill: "08"
   leshi-contract: "1"
   leshi-gates: "spec-reconciliation"
-  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, design-tools, craft"
+  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, design-tools, craft, stack-profile"
 ---
 
 # test-feature-locally
