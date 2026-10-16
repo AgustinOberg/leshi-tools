@@ -48,7 +48,7 @@ Distinguish **approved ≠ implemented ≠ released** everywhere.
 
 ## 6. Writing configuration
 
-- Record tool choices with `leshi config set <path> '<json>'` (validated, then `leshi sync` runs automatically). If the CLI is unavailable, edit `leshi.config.json` carefully, keep it valid JSON, and ask the developer to run `leshi sync`.
+- Record tool choices with `leshi config set <path> '<json>'`: it validates the change and regenerates leshi's files, installing only skill slots whose source changed — it never upgrades the skill you are running. Upgrading every skill to the latest version is the developer's explicit `leshi sync`. If the CLI is unavailable, edit `leshi.config.json` carefully, keep it valid JSON, and ask the developer to run `leshi sync`.
 - The config stores choices and references only (provider, project ref, spec ids/revisions, commands). It never stores SPEC content.
 - Never silently substitute a tool the developer chose. If it cannot do what the workflow needs, explain the gap and ask for a decision.
 
