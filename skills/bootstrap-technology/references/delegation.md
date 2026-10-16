@@ -11,7 +11,7 @@ The main harness session is the orchestrator. There is no orchestrator agent. Sp
 | `leshi-backend` | APIs, domain logic, persistence, validation, contracts + focused tests; runtime/deploy comparisons | choose cloud/deploy without developer approval |
 | `leshi-research` | users, reviews, competitors, market, references; evidence vs assumptions | write production code or make product decisions |
 | `leshi-design` | UX flows, UI Kit, low-fi/hi-fi, interaction rationale, restrained polish | change scope or approved visual direction |
-| `leshi-reviewer` | independent review of a diff vs SPECs: regressions, security, quality | edit files (read-only) or fix its own findings |
+| `leshi-reviewer` | independent review of a diff vs SPECs and the craft: regressions, security, quality, silent decisions | edit files (read-only) or fix its own findings |
 | `leshi-qa` | reproduce bugs, run local E2E journeys, compare UI with hi-fi, collect evidence | assume a pass without executing |
 
 ## When to delegate
@@ -19,7 +19,7 @@ The main harness session is the orchestrator. There is no orchestrator agent. Sp
 Delegate when at least one is true:
 - two or more pieces of work are independent and can run in parallel (research + design references; frontend + backend with an agreed contract);
 - a focused investigation would flood the main context (codebase mapping, log analysis, E2E runs);
-- an independent view adds real value (high-risk change → `leshi-reviewer`).
+- an independent view adds real value (`leshi-reviewer`: always at the end of `implement-the-feature`; elsewhere for high-risk changes).
 
 Do the work inline when it is small, sequential or tightly coupled to the conversation. Never spawn all seven "just in case". Specialists never spawn other agents.
 
