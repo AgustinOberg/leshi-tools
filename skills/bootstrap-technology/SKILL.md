@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "02"
   leshi-contract: "1"
   leshi-gates: "deployment-choice, test-policy, technical-spec"
-  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft, stack-profile"
+  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft, stack-profile, addons"
 ---
 
 # bootstrap-technology
 
 Turn the approved Product Spec into an **approved Technical Spec** and a **test policy** recorded in the project configuration. Agents research, compare and recommend; **the developer decides** every material technical choice. This is the second step of the new-project path (product → technology → MVP).
 
-Read `references/conventions.md` first (gates, statuses, questions policy, final report). Task Manager details are in `references/task-manager.md`, revisions in `references/spec-revisions.md`, test and delivery rules in `references/delivery.md`. Code-level decisions come from `references/craft.md` §2; the recommended defaults are in `references/stack-profile.md`.
+Read `references/conventions.md` first (gates, statuses, questions policy, final report). Task Manager details are in `references/task-manager.md`, revisions in `references/spec-revisions.md`, test and delivery rules in `references/delivery.md`. Code-level decisions come from `references/craft.md` §2; the recommended defaults are in `references/stack-profile.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -78,7 +78,7 @@ Not allowed: scaffolding projects, installing dependencies, creating cloud accou
 1. **Preconditions and session.** Check §2. Start the session log (`leshi session start --workflow bootstrap-technology --ref <product-spec-id> --harness <id>`).
 2. **Load product context.** Read the approved Product Spec; list the technical drivers (platforms, offline needs, realtime, media, AI/STT, privacy, scale, budget) in 5–10 bullets and confirm them.
 3. **Identify components.** Propose the component list (e.g. mobile app, web app, API, background jobs, database, file storage) and confirm it.
-4. **Research and compare.** Delegate to `leshi-backend` / `leshi-frontend` / `leshi-structure` when useful. For each decision present 2–4 options that satisfy the requirements, with capabilities and limits, operational burden, cost model and local-dev story, plus a recommendation.
+4. **Research and compare.** [USES:research] [USES:tech-docs] Delegate to `leshi-backend` / `leshi-frontend` / `leshi-structure` when useful. For each decision present 2–4 options that satisfy the requirements, with capabilities and limits, operational burden, cost model and local-dev story, plus a recommendation.
    - *Example (Case B):* "I want a simple backend." Ask about scale, connection state, native dependencies, execution limits, cron, storage, networking and cost. Cloudflare Workers is an edge **runtime/platform** with its own constraints (execution time, no arbitrary native binaries, its own storage products). Docker is a **packaging** strategy: it still needs a host (VPS, container service, Kubernetes) and an operations policy. They are not equivalent answers to one question. The developer chooses; the Technical Spec records the contract.
 5. **Cover the six questions per component.** Walk §4.1–4.6 for every component and record the answers. [CHECK:deployment-questions-covered] — before the Technical Spec draft, verify every component has an answer (or an explicit "not applicable / decide later" approved by the developer) for all six questions; list any gaps.
 6. **Decide runtime and deployment.** Present the per-component summary (runtime, hosting/deploy platform, build/deploy approach, environments, secrets location, estimated cost). [GATE:deployment-choice] Iterate on feedback in place.

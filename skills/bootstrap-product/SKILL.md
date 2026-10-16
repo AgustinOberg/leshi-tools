@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "01"
   leshi-contract: "1"
   leshi-gates: "positioning-scope, project-setup, product-spec"
-  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions"
+  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions, addons"
 ---
 
 # bootstrap-product
 
 Turn the developer's product idea into an **approved Product Spec** and an **approved Project Setup** (Task Manager connected and verified, design tools chosen, platforms and repository recorded). This is the first step of the new-project path (product → technology → MVP). For an existing codebase use `bootstrap-existing-project` instead.
 
-Read `references/conventions.md` first; it defines gates, statuses, questions policy and the final report. Task Manager details are in `references/task-manager.md`, design tools in `references/design-tools.md`.
+Read `references/conventions.md` first; it defines gates, statuses, questions policy and the final report. Task Manager details are in `references/task-manager.md`, design tools in `references/design-tools.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -46,6 +46,7 @@ Ask only what cannot be inferred, in small batches with recommended defaults:
    - Low-fi tool, hi-fi tool and UI Kit tool: Figma, HTML/CSS, Penpot, tldraw (low-fi only) or Other.
    - Repository location/organization (single repo, monorepo, multiple repos) and where SPECs should live in the TM (project/board reference).
    - Language for SPECs and TM artifacts (`project.language`) if unset.
+   - Add-ons: tools the harness already has (MCP servers, skills, CLIs) that should help at given moments, e.g. an app-design library for style references (`references/addons.md` §4). Propose them; do not turn it into a questionnaire.
    - Skill/agent customization: `leshi init` already offered "use all defaults" vs per-component overrides. Only mention that the developer can revisit it now (`leshi config` + `leshi sync`); do not re-ask all 16 components.
 
 ## 5. Approvals
@@ -71,13 +72,14 @@ Not allowed: choosing frameworks, runtimes, hosting or databases (that is `boots
 
 1. **Preconditions and session.** Check §2. Start the session log (`leshi session start --workflow bootstrap-product --harness <id>`).
 2. **Capture the vision.** Ask the §4.1–4.3 questions not already answered. Summarize back in 5–8 bullets and confirm understanding.
-3. **Research the space.** Delegate to `leshi-research` (and `leshi-design` for references) when useful, otherwise research inline. Cover: competitors (features, positioning, pricing, platform), user reviews (store reviews, forums) with recurring praise/complaints, target users and unmet needs, market signals, differentiation opportunities, design references (competitors + any category). Always cite dated sources, keep facts apart from interpretation, label assumptions and estimates, give counts with their base, and state how the research was built and its limits; close with a recommendation first and the decisions that are the developer's (the report shape in the `leshi-research` agent).
+3. **Research the space.** [USES:research] [USES:user-voice] [USES:design-references] Delegate to `leshi-research` (and `leshi-design` for references) when useful, otherwise research inline. Cover: competitors (features, positioning, pricing, platform), user reviews (store reviews, forums) with recurring praise/complaints, target users and unmet needs, market signals, differentiation opportunities, design references (competitors + any category). Always cite dated sources, keep facts apart from interpretation, label assumptions and estimates, give counts with their base, and state how the research was built and its limits; close with a recommendation first and the decisions that are the developer's (the report shape in the `leshi-research` agent).
 4. **Propose positioning and scope.** Audience/personas, problem statements, value proposition, differentiation, core capabilities (not features list yet), platforms, non-goals, risks and open questions. [GATE:positioning-scope] Iterate on feedback.
 5. **Project setup — tools.** Ask §4.4 in one step. Record each choice right away: `leshi config set taskManager '<json>'`, `leshi config set design '<json>'`, `leshi config set project.platforms '<json>'`, `leshi config set project.language '"es-AR"'` (examples). For the GitHub TM, `projectRef` is `owner/repo` (issues) plus an optional Projects v2 number in `taskManager.mapping`.
 6. **Connect the Task Manager and discover capabilities.** Follow `references/task-manager.md` §3 [CHECK:task-manager-capabilities]: connect over MCP (guide the developer through the harness's MCP login if needed; never ask for a token in chat), list tools, exercise only read calls, show the verified / advertised / unavailable table, then record it with `leshi tm record ...`.
    - **Playbook**: run `leshi tm playbook` to create `.leshi/task-manager.md` from the provider template, then complete it with what discovery showed: where SPECs, features, subtasks, decisions, approvals and status will live, and the exact MCP tool (and key arguments) for each operation. Keep it to tables and ids. It is part of what the developer approves at the project-setup gate.
    - **Read-only or insufficient TM** (cannot create/update items or comments): explain exactly what will not work, offer authorized options (permissions, another server, a verified CLI/API fallback the developer authorizes, another TM). Do not continue as if the TM were writable; do not simulate persistence. If the developer wants to proceed later, set the run to *Awaiting Input* and stop.
    - **Design tools** (`references/design-tools.md`): for each chosen tool, discover what it can do — MCP tools for Figma/Penpot (guide the developer through the harness's MCP login; read-only calls only), repo paths for HTML/tldraw — and record it with `leshi design record --provider <p> --via mcp|local ...` (`leshi design probe` from the CLI when reachable). A tool that cannot create/update designs is review-only: say so and ask how to proceed. Then `leshi design playbook` → complete `.leshi/design.md` (where the UI Kit, low-fi and hi-fi live, naming, exports for review, how approvals pin versions, exact tool per operation). Never substitute a tool.
+   - **Add-ons** (`references/addons.md` §4): list the MCP servers and skills this harness has beyond leshi's (`leshi addon list` shows what the CLI can see), propose which moments each one should serve with a recommendation, and connect the ones the developer approves with `leshi addon add <name> ... --yes`; verify each with one free read-only call and `leshi addon record`. Optional: skip when there are none or the developer prefers to add them later.
    [GATE:project-setup]
 7. **Write the Product Spec draft.** Sections: Vision · Problem & opportunity · Target users/personas · User needs & jobs-to-be-done · Research summary (competitors, reviews, market) with sources · Differentiation · Core capabilities · Platforms · Design references & desired visual language · Non-goals · Risks, assumptions & open questions · Success metrics. Present it in the conversation (or as a TM draft/proposal comment if long). [GATE:product-spec] Iterate on feedback in place.
 8. **Save the approved revision.** Create or update the Product Spec item in the TM following the provider strategy (`references/task-manager.md` §5): body = approved text with `<!-- leshi:spec kind=product revision=v1 status=approved -->`; snapshot comment; approval comment `<!-- leshi:approval gate=product-spec artifact=product-spec revision=v1 by=developer date=YYYY-MM-DD -->`. Also store a short "Project Setup" section (tools chosen, TM capabilities summary, repository, platforms) in the Product Spec item or as a linked item.

@@ -32,6 +32,7 @@ Allowed to modify: <paths or "read-only">
 Interfaces/contracts agreed: <API shapes, component props, file ownership>
 Constraints: <conventions, test policy, approved decisions it must not reopen>
 Craft: <path to this skill's references/craft.md, when it ships one> (code-writing, review, structure and QA work: how code is written, when to stop and question)
+Add-ons: <tools connected to this objective's moment, with companion skills and cost notes, from .leshi/addons.md> (only when the step has them)
 Design craft: <path to this skill's references/design-tools.md, when it ships one> (design work only)
 Done when: <objective criteria>
 Return: the response contract below, concise.

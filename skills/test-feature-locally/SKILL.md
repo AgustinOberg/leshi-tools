@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "08"
   leshi-contract: "1"
   leshi-gates: "spec-reconciliation"
-  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, design-tools, craft, stack-profile"
+  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, design-tools, craft, stack-profile, addons"
 ---
 
 # test-feature-locally
 
 Validate an implemented feature **locally and end to end** against its approved acceptance criteria and hi-fi designs, fix what fails, run the project's required checks, and deliver it: branch pushed, PR open against the target branch, Task Manager updated, and *Ready for Review* only when the PR exists and required checks pass.
 
-Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delivery rules (branches, tests, PRs, Ready for Review) are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delivery rules (branches, tests, PRs, Ready for Review) are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -70,9 +70,9 @@ Not allowed: deploying to real infrastructure or touching production data; chang
 2. **Load the test basis.** Acceptance criteria, edge cases, approved hi-fi per device, subtasks done, current HOW decisions. Build a short test matrix: journey/criterion × device × expected result.
 3. **Choose device coverage.** [CHECK:device-coverage] Visual/UI-heavy feature → every target platform (Android **and** iOS when both are targets; tablet when relevant). Primarily functional feature → one representative device if the project's policy (`testing.e2e.requiredFor`, `testing.e2e.devices`) allows it. Record the choice and the reason. Use the project's own tooling (`testing.e2e.tool` / `testing.e2e.command`, the platform simulators/emulators, browser automation, or whatever the Technical Spec chose); do not introduce a new tool without asking.
 4. **Run everything locally.** Start frontend, backend and required dependencies with practical test data (local emulators/containers/mocks as the Technical Spec defines). Never point at production. If something cannot start, diagnose; if it is a genuine external impediment, record it (see §12).
-5. **Test end to end.** Exercise the complete journeys, important edge cases (empty/error/loading states, permissions, offline, invalid input) and the real frontend↔backend integration. Compare observed behavior with each acceptance criterion and the UI with the approved hi-fi on each device. Capture evidence: screenshots, relevant logs, exact repro steps. No video recording is required.
+5. **Test end to end.** [USES:qa] Exercise the complete journeys, important edge cases (empty/error/loading states, permissions, offline, invalid input) and the real frontend↔backend integration. Compare observed behavior with each acceptance criterion and the UI with the approved hi-fi on each device. Capture evidence: screenshots, relevant logs, exact repro steps. No video recording is required.
 6. **Log findings.** Record each defect in the TM (comment or child item per provider strategy) with steps, expected vs observed, device and evidence. Classify: implementation defect, polish defect, or spec conflict.
-7. **Fix and retest (feedback loop).** Implementation and polish defects: fix with the right agent (or inline), add/adjust their tests (backend fixes always with endpoint tests, craft §9), then repeat only the affected journeys on the affected devices. Spec conflicts: [GATE:spec-reconciliation]. Loop until every criterion in the matrix passes or the remaining items are explicitly accepted or deferred by the developer.
+7. **Fix and retest (feedback loop).** [USES:debugging] Implementation and polish defects: fix with the right agent (or inline), add/adjust their tests (backend fixes always with endpoint tests, craft §9), then repeat only the affected journeys on the affected devices. Spec conflicts: [GATE:spec-reconciliation]. Loop until every criterion in the matrix passes or the remaining items are explicitly accepted or deferred by the developer.
 8. **Required checks.** [CHECK:required-checks] Run every command in `testing.requiredBeforePush` (at least the configured unit tests), plus typecheck/lint/integration commands when configured. All must pass. Never skip or weaken a check; disclose any that cannot run here and why.
 9. **Commit and push.** Small, meaningful commits referencing the TM id, following the repository's conventions; no secrets. Push the feature branch (create it per `delivery.branchPrefix` if needed).
 10. **Open or update the PR** against `delivery.targetBranch` (default `main`): summary, link to the TM feature and the approved Spec revision, what changed, test matrix with results (commands + pass/fail per device), screenshots for visual changes, and manual test instructions a human can follow. Record `<!-- leshi:pr url=... spec=<feature>@<revision> -->` in the TM. Never merge.

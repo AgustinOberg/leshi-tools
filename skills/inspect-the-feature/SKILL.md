@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "05"
   leshi-contract: "1"
   leshi-gates: "open-questions, low-fi, hi-fi"
-  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions, craft, stack-profile"
+  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions, craft, stack-profile, addons"
 ---
 
 # inspect-the-feature
 
 Turn a Task Manager item labeled **Idea** into an approved **Feature**: complete functional WHAT (intent, requirements, acceptance criteria, states), approved hi-fi for the relevant devices, and executable child subtasks. Technical HOW decisions known so far go in comments. This workflow **does not implement** anything.
 
-Read `references/conventions.md` first (gates, statuses, questions policy, final report). TM model and markers: `references/task-manager.md`. Design rules and tool layouts: `references/design-tools.md`. Revisions: `references/spec-revisions.md`. How the subtasks will be built (to slice them): `references/craft.md`.
+Read `references/conventions.md` first (gates, statuses, questions policy, final report). TM model and markers: `references/task-manager.md`. Design rules and tool layouts: `references/design-tools.md`. Revisions: `references/spec-revisions.md`. How the subtasks will be built (to slice them): `references/craft.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -71,10 +71,10 @@ Not allowed: application code changes, tests, migrations or dependency changes [
 
 1. **Preconditions and session.** Check §2. Start the session log (`leshi session start --workflow inspect-the-feature --ref <idea-id> --harness <id>`). Set the item to *In Progress*.
 2. **Understand the request.** Read §3. Summarize the intent, the users affected, and how it fits the Product and MVP SPECs in 4–6 bullets. Inspect every hi-fi file related to the feature.
-3. **Ask.** Edge cases, undefined things, references and devices (§4). Investigate references when given (delegate to `leshi-research` if broad). Set *Awaiting Input* while waiting. [GATE:open-questions]
+3. **Ask.** [USES:design-references] Edge cases, undefined things, references and devices (§4). Investigate references when given (delegate to `leshi-research` if broad). Set *Awaiting Input* while waiting. [GATE:open-questions]
 4. **Suggest a flow.** Entry points, steps, decision points, exits, and every state (default, loading, empty, error, permission denied, offline where relevant). Confirm it with the developer as part of [GATE:open-questions].
-5. **Low-fi.** If the MVP has an approved, current low-fi for this feature and the flow did not change materially, **reuse it** and say so (link + version). Otherwise create or modify it with `design.lowFi` (`references/design-tools.md`) and get approval. [GATE:low-fi]
-6. **Hi-fi.** Produce hi-fi with `design.highFi`, using only UI Kit tokens/components, for each relevant device (phone + tablet when applicable), covering all states from step 4. Delegate to `leshi-design` when useful.
+5. **Low-fi.** [USES:screens] If the MVP has an approved, current low-fi for this feature and the flow did not change materially, **reuse it** and say so (link + version). Otherwise create or modify it with `design.lowFi` (`references/design-tools.md`) and get approval. [GATE:low-fi]
+6. **Hi-fi.** [USES:screens] Produce hi-fi with `design.highFi`, using only UI Kit tokens/components, for each relevant device (phone + tablet when applicable), covering all states from step 4. Delegate to `leshi-design` when useful.
 7. **Ping-pong.** Present the hi-fi, collect feedback, iterate in the same run (feedback is not failure). Set *Awaiting Approval* while waiting. [GATE:hi-fi]
 8. **Write the Feature WHAT.** Update the root item **preserving the original request** (keep it quoted under "Original request"), then: intent, requirements, acceptance criteria (testable, numbered), states, non-goals, dependencies, approved design links with `<!-- leshi:design kind=hi-fi tool=<provider> ref=<link> version=<rev> -->` (and low-fi), approval markers for each gate.
 9. **Record the HOW known so far.** Technical decisions that already constrain the feature (from the Technical Spec or answers) as comments with `<!-- leshi:decision id=D-<n> status=current -->` and rationale. Unresolved technical choices are listed as open, not decided (they belong to `implement-the-feature`).

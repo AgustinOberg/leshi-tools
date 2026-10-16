@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "03"
   leshi-contract: "1"
   leshi-gates: "mvp-scope, ui-kit, low-fi-all-features, mvp-spec"
-  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions"
+  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, spec-revisions, addons"
 ---
 
 # bootstrap-mvp
 
 Turn the approved Product and Technical Specs into an **approved MVP**: scope, journeys, dependencies and the full feature backlog; an **approved UI Kit** (designed first); **approved low-fi designs for ALL MVP features** produced in this same run; and the MVP Spec + Design System Spec saved in the Task Manager. This is the third step of the new-project path (product → technology → MVP). Hi-fi happens later, per feature, in `inspect-the-feature`.
 
-Read `references/conventions.md` first (gates, statuses, questions policy, final report). Design rules and per-tool storage are in `references/design-tools.md`; Task Manager details in `references/task-manager.md`.
+Read `references/conventions.md` first (gates, statuses, questions policy, final report). Design rules and per-tool storage are in `references/design-tools.md`; Task Manager details in `references/task-manager.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -69,9 +69,9 @@ Not allowed: hi-fi designs (they come per feature in `inspect-the-feature`), app
 
 1. **Preconditions and session.** Check §2. Start the session log (`leshi session start --workflow bootstrap-mvp --ref <product-spec-id> --harness <id>`).
 2. **Define the MVP scope.** Ask §4.1–4.3. Produce: MVP goal, non-goals, primary journeys, the complete feature list (name, one-line intent, priority, platforms, dependencies), ordering and risks. [GATE:mvp-scope] Iterate on feedback in place.
-3. **Design the UI Kit — first task.** With the configured `design.uiKit` tool (`references/design-tools.md`, including its **Design craft**). If the visual direction is not fixed yet, first show 3–4 genuinely different directions side by side with a recommendation and let the developer choose (record what was rejected and why); then build the kit on the chosen one: tokens (color, type scale, spacing, radius, elevation, motion), core components with all states (buttons, inputs, lists, cards, navigation, sheets/dialogs, feedback, empty/loading/error), shared UX patterns and accessibility rules, and each theme chosen in §4 (e.g. light and dark), each designed rather than inverted. Native to the target platforms; restrained, no decorative "AI style". Present it for review (links, or offer to open the HTML pages). [GATE:ui-kit] Iterate on feedback in place.
+3. **Design the UI Kit — first task.** [USES:design-references] [USES:ui-kit] With the configured `design.uiKit` tool (`references/design-tools.md`, including its **Design craft**). If the visual direction is not fixed yet, first show 3–4 genuinely different directions side by side with a recommendation and let the developer choose (record what was rejected and why); then build the kit on the chosen one: tokens (color, type scale, spacing, radius, elevation, motion), core components with all states (buttons, inputs, lists, cards, navigation, sheets/dialogs, feedback, empty/loading/error), shared UX patterns and accessibility rules, and each theme chosen in §4 (e.g. light and dark), each designed rather than inverted. Native to the target platforms; restrained, no decorative "AI style". Present it for review (links, or offer to open the HTML pages). [GATE:ui-kit] Iterate on feedback in place.
 4. **Map the overall UX.** Navigation structure, screen inventory and flows across the entire MVP (a single map), so feature low-fi stays coherent. Confirm it with the developer as part of the low-fi review.
-5. **Low-fi for ALL MVP features — in this same run.** For every feature from step 2, create low-fi with the configured `design.lowFi` tool: structure, hierarchy, flows, all relevant states and edge cases, using UI Kit components (no visual polish). Do not stop after a subset; if the run must pause, checkpoint which features remain and continue on resume. [CHECK:low-fi-coverage] — before the review, verify that every feature in the approved scope has a low-fi artifact (list feature → artifact link); list gaps and finish them.
+5. **Low-fi for ALL MVP features — in this same run.** [USES:screens] For every feature from step 2, create low-fi with the configured `design.lowFi` tool: structure, hierarchy, flows, all relevant states and edge cases, using UI Kit components (no visual polish). Do not stop after a subset; if the run must pause, checkpoint which features remain and continue on resume. [CHECK:low-fi-coverage] — before the review, verify that every feature in the approved scope has a low-fi artifact (list feature → artifact link); list gaps and finish them.
 6. **Review the low-fi together.** Present all low-fi with the UX map. [GATE:low-fi-all-features] Iterate on feedback in place; re-run [CHECK:low-fi-coverage] after changes.
 7. **Write the specs.**
    - **Design System Spec**: approved UI Kit (link + version), tokens, components and states, interaction principles, accessibility rules, references.

@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "07"
   leshi-contract: "1"
   leshi-gates: "approved-decision-change"
-  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, delivery, craft, stack-profile"
+  leshi-shared: "conventions, task-manager, sessions, delegation, design-tools, delivery, craft, stack-profile, addons"
 ---
 
 # enhance-the-feature
 
 Polish an implemented **Feature** so it feels professional and native: compare it with the approved hi-fi and UI Kit and refine hierarchy, spacing, typography, states, gestures, subtle micro-interactions and accessibility. It does **not** change the product, reopen approved decisions or add decoration. If the Feature has no relevant visual surface, report N/A and finish without changes.
 
-Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Visual quality bar and design tools: `references/design-tools.md`. Delegation: `references/delegation.md`. Branch and test rules: `references/delivery.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Visual quality bar and design tools: `references/design-tools.md`. Delegation: `references/delegation.md`. Branch and test rules: `references/delivery.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -67,9 +67,9 @@ Not allowed: product changes (new behavior, removed requirements, new screens); 
 
 1. **Preconditions and session.** Check §2. Start the session log (`leshi session start --workflow enhance-the-feature --ref <feature-id> --harness <id>`).
 2. **Applicability.** Decide whether the Feature has a relevant UX/UI surface. If not (pure backend, data migration, internal job), report **N/A** with the reason, add a TM comment, close the session and finish without changes. [CHECK:applicability]
-3. **Review the experience.** Run the UI (or use screenshots) for each affected screen, device and state; compare with the approved hi-fi and UI Kit. Delegate to `leshi-design` when useful. Produce a short list of gaps, each with: screen/state, observed vs expected, severity, proposed fix.
-4. **Polish the details.** Fix hierarchy, spacing, alignment, typography, color/token usage, states (loading, empty, error, disabled), affordances, legibility and consistency with the UI Kit. Delegate implementation to `leshi-frontend` when useful.
-5. **Add subtle micro-interactions** only where they give purposeful feedback: pressed/hover/focus states, gentle transitions, gesture feedback, haptics where native. Native feel, accessibility (contrast, touch targets, dynamic type, screen reader labels, focus order, reduced motion) and performance (no jank, no heavy animation libraries for trivial effects). No showy animations.
+3. **Review the experience.** [USES:qa] [USES:design-references] Run the UI (or use screenshots) for each affected screen, device and state; compare with the approved hi-fi and UI Kit. Delegate to `leshi-design` when useful. Produce a short list of gaps, each with: screen/state, observed vs expected, severity, proposed fix.
+4. **Polish the details.** [USES:polish] Fix hierarchy, spacing, alignment, typography, color/token usage, states (loading, empty, error, disabled), affordances, legibility and consistency with the UI Kit. Delegate implementation to `leshi-frontend` when useful.
+5. **Add subtle micro-interactions** [USES:polish] only where they give purposeful feedback: pressed/hover/focus states, gentle transitions, gesture feedback, haptics where native. Native feel, accessibility (contrast, touch targets, dynamic type, screen reader labels, focus order, reduced motion) and performance (no jank, no heavy animation libraries for trivial effects). No showy animations.
 6. **Changes to approved decisions.** Anything beyond the approved hi-fi/UI Kit goes through [GATE:approved-decision-change] or becomes a follow-up suggestion.
 7. **Track the polish.** Record actionable polish items as TM subtasks of the Feature (or comments on it per the provider strategy) and document design decisions as comments with decision markers. Mark them resolved as they are fixed.
 8. **Verify the finish.** Re-review the final experience on the affected screens/devices; rerun the affected tests, lint and typecheck. [CHECK:affected-checks] Optionally attach screenshots (before/after) as evidence. Commit with the TM id on the feature branch.

@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "06"
   leshi-contract: "1"
   leshi-gates: "unresolved-decision, spec-reconciliation"
-  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft, stack-profile"
+  leshi-shared: "conventions, task-manager, sessions, delegation, spec-revisions, delivery, craft, stack-profile, addons"
 ---
 
 # implement-the-feature
 
 Implement an approved **Feature** by working through its child subtasks: load the approved WHAT and designs, resolve the remaining technical decisions with the developer, plan, implement (in parallel where safe), and integrate with targeted validation. The run ends with the implementation complete and pending enhancement/E2E — **never** with *Ready for Review*.
 
-Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delegation: `references/delegation.md`. Branches, tests and PR rules: `references/delivery.md`. Resume: `references/sessions.md`. Spec changes and drift: `references/spec-revisions.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delegation: `references/delegation.md`. Branches, tests and PR rules: `references/delivery.md`. Resume: `references/sessions.md`. Spec changes and drift: `references/spec-revisions.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -81,7 +81,7 @@ Plan frontend, backend, database and integration changes per subtask: files, con
 **Phase 4 — Execute (in parallel where independent)**
 3. Pick the next unblocked subtask (independent subtasks may go to parallel agents with disjoint file ownership).
 4. Understand its acceptance criteria and the relevant files.
-5. Implement following existing patterns, project conventions and `references/craft.md`; stop at its stop-and-question moments (craft §3): a library, a code-smell or a platform-limit question goes through [GATE:unresolved-decision]; a spec or design that does not hold goes through [GATE:spec-reconciliation].
+5. Implement following existing patterns, project conventions and `references/craft.md`; stop at its stop-and-question moments (craft §3): a library, a code-smell or a platform-limit question goes through [GATE:unresolved-decision]; a spec or design that does not hold goes through [GATE:spec-reconciliation]. [USES:tech-docs]
 6. Write or update the tests the subtask needs; backend changes always come with backend tests (craft §9).
 7. Run targeted tests, lint and typecheck when relevant — scoped to what changed, not full suites. [CHECK:targeted-tests]
 8. Fix issues and verify the subtask's acceptance criteria.
@@ -90,7 +90,7 @@ Plan frontend, backend, database and integration changes per subtask: files, con
 
 **Phase 5 — Integrate & check**
 11. Integrate parallel work (merge worktrees, resolve conflicts) and run feature-level integration tests; verify the UI against the hi-fi where the environment allows it (detailed device E2E belongs to `test-feature-locally`).
-12. Review the integrated diff with `leshi-reviewer` for every Feature: requirements, regressions, security, craft and silent decisions. Without subagent support, do the same review inline with the craft checklist (craft §11) and say so.
+12. Review the integrated diff with `leshi-reviewer` for every Feature: requirements, regressions, security, craft and silent decisions. Without subagent support, do the same review inline with the craft checklist (craft §11) and say so. [USES:review]
 13. Fix findings and rerun the affected validations. [CHECK:targeted-tests]
 14. Generate the final report: changes per subtask, test results (commands + pass/fail), checks not run and why, remaining issues, decisions taken.
 15. Mark the Feature according to actual progress: *implementation complete — pending enhancement / local E2E* (or the TM equivalent, e.g. stay *In Progress* with that note). **Never** *Ready for Review*: that requires the PR and required checks produced later (`test-feature-locally`, `references/delivery.md`). [CHECK:no-premature-ready-for-review] If the project's delivery policy opens the PR at this point, follow `references/delivery.md` and still leave *Ready for Review* to the moment the PR and required checks exist and pass. Close the session log and suggest `enhance-the-feature` or `test-feature-locally` as the next manual step.

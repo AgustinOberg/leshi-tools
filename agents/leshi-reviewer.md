@@ -15,7 +15,7 @@ You are the independent reviewer of the leshi-ai factory. The main harness sessi
 - `test-feature-locally` / `fix-the-bug` — review the final diff when it touches security, data integrity, payments, migrations or shared contracts.
 
 ## Inputs you should receive
-Objective, the diff or branch to review (base and head), the Feature/Bug and approved Spec revision by reference, the acceptance criteria, relevant decisions (HOW comments), known risk areas, the done criteria, and the **craft** path (`references/craft.md` of the delegating skill; if missing, look in the project's installed leshi skills, e.g. `.agents/skills/implement-the-feature/references/craft.md`). If any is missing and you cannot infer it, say so in `decisions needed`.
+Objective, the diff or branch to review (base and head), the Feature/Bug and approved Spec revision by reference, the acceptance criteria, relevant decisions (HOW comments), known risk areas, the done criteria, and the **craft** path (`references/craft.md` of the delegating skill; if missing, look in the project's installed leshi skills, e.g. `.agents/skills/implement-the-feature/references/craft.md`). If any is missing and you cannot infer it, say so in `decisions needed`. When the brief lists **Add-ons** (tools the project connected to this moment), use them first for that part of the objective: load their companion skills, respect their cost note and say in your report what you used; if one is unavailable, say so and continue with your usual method.
 
 ## How to work
 1. Restate what you are reviewing and against what (Spec revision, criteria, craft).

@@ -6,14 +6,14 @@ metadata:
   leshi-skill: "09"
   leshi-contract: "1"
   leshi-gates: "behavior-change"
-  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, craft, stack-profile"
+  leshi-shared: "conventions, task-manager, sessions, delegation, delivery, spec-revisions, craft, stack-profile, addons"
 ---
 
 # fix-the-bug
 
 Take a Bug item from the Task Manager, **reproduce it locally**, find the **root cause**, apply the **smallest safe fix** with tests that cover the regression, validate locally, and deliver a PR linked to the bug. If the bug is already fixed, not reproducible, or has no safe justified change, record the findings in the Task Manager and **do not open an empty PR**.
 
-Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delivery rules are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`.
+Read `references/conventions.md` first. How code is written and when to stop and question: `references/craft.md`. Delivery rules are in `references/delivery.md`; the Task Manager protocol is in `references/task-manager.md`. Tools connected to the steps marked `[USES:<moment>]`: `references/addons.md`.
 
 ## 1. Trigger
 
@@ -69,9 +69,9 @@ Not allowed: opportunistic refactors, unrelated fixes, dependency upgrades not r
 
 1. **Preconditions and session.** Check §2. Start or resume the session log (`leshi session start --workflow fix-the-bug --ref <bug-id> --harness <id>`). Set the TM status to *In Progress*.
 2. **Understand the bug.** Read the complete ticket and comments. Establish expected vs actual behavior, environment, severity and the intended behavior per the approved SPEC. Write a one-paragraph problem statement.
-3. **Reproduce locally.** [CHECK:reproduction] Create a fix branch from the up-to-date target branch (`delivery.branchPrefix.bug`, default `fix/` + id + slug). Run the relevant user flow in the appropriate local environment, preferably via `leshi-qa` using the project's E2E tooling (`testing.e2e`) when the bug is user-facing; otherwise a focused test or script. Document exact steps, data, device and evidence (screenshots, logs), and your hypotheses.
+3. **Reproduce locally.** [USES:qa] [USES:debugging] [CHECK:reproduction] Create a fix branch from the up-to-date target branch (`delivery.branchPrefix.bug`, default `fix/` + id + slug). Run the relevant user flow in the appropriate local environment, preferably via `leshi-qa` using the project's E2E tooling (`testing.e2e`) when the bug is user-facing; otherwise a focused test or script. Document exact steps, data, device and evidence (screenshots, logs), and your hypotheses.
 4. **Not reproduced?** Check whether it is already fixed on the target branch (recent commits, related PRs, versions), whether it depends on an environment you cannot reproduce, or whether the report is ambiguous. Do not guess a fix. Record the findings in the TM (versions/commits checked, environment, steps tried, evidence) and either ask the developer for missing details (*Awaiting Input*) or close the investigation per their decision. [CHECK:no-empty-pr] No PR when there is no justified change.
-5. **Find the root cause.** Trace the failure to its cause, not the symptom. Distinguish bug vs missing feature vs SPEC gap. If the honest fix changes intended behavior or a contract, [GATE:behavior-change]. If there is no safe, justified change, record that analysis in the TM and stop without a PR ([CHECK:no-empty-pr]).
+5. **Find the root cause.** [USES:debugging] [USES:tech-docs] Trace the failure to its cause, not the symptom. Distinguish bug vs missing feature vs SPEC gap. If the honest fix changes intended behavior or a contract, [GATE:behavior-change]. If there is no safe, justified change, record that analysis in the TM and stop without a PR ([CHECK:no-empty-pr]).
 6. **Write the regression test first.** [CHECK:regression-test] Add a test at the lowest level that reproduces the bug (unit/integration, or E2E when the defect only shows end to end) and confirm it fails before the fix. A backend bug always gets an endpoint test against the local test database (craft §9); a unit test of the pure rule may be added next to it.
 7. **Apply the smallest safe fix.** Follow existing patterns and contracts; keep the change focused; avoid breaking changes. Confirm the regression test now passes.
 8. **Validate locally.** Re-run the reproduction steps (via `leshi-qa` when it reproduced the bug) and check related behavior for side effects and regressions. Run targeted tests for the touched modules.

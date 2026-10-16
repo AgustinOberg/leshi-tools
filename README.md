@@ -26,6 +26,7 @@ The skills define the process; how the work is done lives in shared references e
 
 - `craft.md` — how code is written, stack-agnostic: structure, boundaries and errors, frontend and backend rules, backend tests always against a local test database, the four moments to stop and question (library vs hand-built, code that smells, a spec or design that does not hold, platform limits) and a review checklist.
 - `stack-profile.md` — the maintainer's preferred tools, offered as a recommendation only when they meet the project's requirements, never imposed.
+- `addons.md` — how a project's own tools (MCP servers, skills, CLIs it connected with `leshi addon add`) are used at the steps marked `[USES:<moment>]`, and how a project changes a workflow or agent with `leshi extend`.
 - `design-tools.md` — design tools, fidelity rules and the design craft (real products first, directions before a choice, every screen specified, tokens only, purposeful motion).
 
 ## Agents (7 specialists)

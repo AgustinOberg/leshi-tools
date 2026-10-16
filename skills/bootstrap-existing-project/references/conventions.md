@@ -8,7 +8,8 @@ These rules apply to every leshi workflow. A skill may add stricter rules; it ne
 2. If there is no config, stop: the project is not connected. Tell the developer to run `leshi init` (it never starts a workflow by itself). Do not create the config by hand.
 3. Read only the parts of the config the workflow needs. The config tells you: enabled harnesses, the Task Manager (`taskManager`), design tools (`design`), spec references (`specs`), test policy (`testing`), delivery rules (`delivery`) and component overrides (`skills`, `agents`).
 4. **Project extension.** Look up this skill's own entry in `skills.<skill-id>`. If its `mode` is `extend`, read the file at its `source` (by default `.leshi/extensions/<skill-id>.md`) before starting and apply it as project-specific additions to this workflow. An extension can add steps, checks and conventions; it can never remove or weaken approval gates, the manual-trigger rule or the sources-of-truth rules. If it seems to, the rules in this skill win and you surface the conflict to the developer.
-5. Never write credentials anywhere: not in the config, Task Manager items, session logs, commits, PR bodies or test fixtures. Authentication lives in the harness/MCP/OS keychain.
+5. **Add-ons.** Steps marked `[USES:<moment>]` use the tools the project connected to that moment (`.leshi/addons.md`); how, and how to connect a tool or change a workflow/agent for this project when the developer asks: `references/addons.md`.
+6. Never write credentials anywhere: not in the config, Task Manager items, session logs, commits, PR bodies or test fixtures. Authentication lives in the harness/MCP/OS keychain.
 
 ## 2. Manual triggers — [NO-AUTO-CHAIN]
 
