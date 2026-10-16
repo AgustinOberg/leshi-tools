@@ -24,6 +24,10 @@ Every skill is started manually and never starts another one. Human approvals pa
 
 `agents/` holds the canonical definitions of `leshi-structure`, `leshi-frontend`, `leshi-backend`, `leshi-research`, `leshi-design`, `leshi-reviewer` and `leshi-qa`. skills.sh installs skills only; the `leshi` CLI converts these agents into each harness's native format.
 
+## Playbook templates
+
+`task-managers/` (GitHub, Linear, Jira, Notion, Plane, generic) and `design-tools/` (Figma, Penpot, HTML, tldraw, generic) are the starting points of each project's `.leshi/task-manager.md` and `.leshi/design.md`: how that project's tools are used (where things live, which MCP tool does each operation). `leshi tm playbook` and `leshi design playbook` copy only the templates of the tools the project chose.
+
 ## Install
 
 The skills expect a project connected with the `leshi` CLI (`leshi init`), which installs them from here through skills.sh and keeps them on the latest version:
